@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '@/pages/Home.vue'
+
 
 
 const router = createRouter({
@@ -7,10 +7,25 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: Home
+      name: 'Home',
+      component: () => import('@/pages/home.vue')
+    },
+    {
+      path: '/kontakt',
+      name: 'kontakt',
+      component: () => import('@/pages/kontakt.vue')
+    },
+    {
+      path: '/om',
+      name: 'om',
+      component: () => import('@/pages/om.vue')
+    },
+    {
+      path: '/projekt',
+      name: 'projekt',
+      component: () => import('@/pages/projekt.vue')
     }
-  ]
+  ],
 })
 
 
