@@ -19,11 +19,11 @@ import { RouterLink } from 'vue-router';
                 <img class="logo" src="../assets/bilder/Skjermbilde_2023-08-18_095804-removebg-preview.png" onclick=""/>
             </div>
 
-            <RouterLink to="/"><a>Hjem</a></RouterLink>
-            <RouterLink to="/projekter">Projekter</RouterLink>
-            <RouterLink to="/om"><span>Om</span></RouterLink>
+            <RouterLink class="RouterLink" to="/">Hjem</RouterLink>
+            <RouterLink class="RouterLink" to="/projekter">Projekter</RouterLink>
+            <RouterLink class="RouterLink" to="/om">Om</RouterLink>
             <div class="erik">
-                 <h1>Erik Sørheim</h1>
+                 <h1 class="RouterLink">Erik Sørheim</h1>
             </div>
         </div>
 
@@ -37,6 +37,7 @@ import { RouterLink } from 'vue-router';
 .navbar_links {
     display: flex;
     justify-content: space-between;
+    gap: 5rem;
     align-items: center;
     padding: 1.5rem 5rem 0rem 5rem;
     margin-left: 1rem;
@@ -48,20 +49,14 @@ import { RouterLink } from 'vue-router';
 
 }
 
-.navbar_links a:hover {
-    color: #000000;
-    font-weight: bold;
-}
+
 
 .navbar_links a {
     text-decoration: none;
-    margin-left: 10rem;
     color: black;
 }
 
-.navbar_links span {
-    margin-right: 10em;
-}
+
 
 .erik {
     margin-top: -0.5rem;
@@ -83,5 +78,42 @@ import { RouterLink } from 'vue-router';
     cursor: pointer;
     
 }
+
+
+/* Underline transition */
+/* Underline styles */
+a {
+  display: block;
+  position: relative;
+  padding: 0.2em 0;
+}
+
+/* Fade in */
+a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  border-radius: 25px;
+  box-shadow: 0 0 2px 2px #000;
+  background-color: black;
+  opacity: 0;
+  transition: opacity 300ms, transform 300ms;
+}
+
+a:hover::after,
+a:focus::after {
+  opacity: 1;
+  transform: translate3d(0, 0.2em, 0);
+}
+
+
+
+
+
+
+
 
 </style>
