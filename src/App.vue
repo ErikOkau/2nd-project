@@ -4,18 +4,18 @@ import navbar from './components/navbar.vue'
 import buttons from './components/buttons.vue'
 import footer from './components/footer.vue'
 
+import './main.css'
+
 </script>
 
 <template>
-<navbar />
+  <navbar />
 
   <div class="main">
     <RouterView />
   </div>
 
-<footer />
+  <footer />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
