@@ -1,43 +1,72 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
+import { RouterLink } from 'vue-router'
+import { onMounted, ref } from 'vue'
 
 
+// Search and menu js for flipping the icons
+const menu_flip = ref<HTMLElement | null>(null)
+const search_flip = ref<HTMLElement | null>(null)
 
+const isMenuOpen = ref(false)
+const isSearchOpen = ref(false)
 
+function toggleMenu() {
+  menu_flip.value?.classList.toggle('menu-arrow-down')
+  isMenuOpen.value = !isMenuOpen.value
+}
+
+function toggleSearch() {
+  search_flip.value?.classList.toggle('search-arrow-down')
+  isSearchOpen.value = !isSearchOpen.value
+}
+
+onMounted(() => {
+  if (menu_flip.value && search_flip.value) {
+    menu_flip.value.addEventListener('click', toggleMenu)
+    search_flip.value.addEventListener('click', toggleSearch)
+  }
+})
 
 
 </script>
 
 <template>
 
-
     <div class="navbar">
 
-        <div class="navbar_links">
+    
 
             <div class="navbar__logo">
-                <img class="logo" src="../assets/bilder/Skjermbilde_2023-08-18_095804-removebg-preview.png" onclick=""/>
+                <img class="logo" src="../assets/bilder/logo.svg" onclick=""/>
             </div>
-
-            <RouterLink class="RouterLink" to="/">Hjem</RouterLink>
-            <RouterLink class="RouterLink" to="/projekter">Projekter</RouterLink>
-            <RouterLink class="RouterLink" to="/om">Om</RouterLink>
-            <div class="erik">
-                 <h1 class="RouterLink">Erik Sørheim</h1>
+            <div class="routerlinks">
+                <RouterLink class="RouterLink" to="/">Hjem</RouterLink>
+                <RouterLink class="RouterLink" to="/projekter">Projekter</RouterLink>
+                <RouterLink class="RouterLink" to="/kontakt">Kontakt</RouterLink>
             </div>
-        </div>
+            
 
-       
+            <div class="search_menu">
+                
+                <img class="search" src="../assets/bilder/search.svg" @click="toggleSearch" :class="{ 'search-arrow-down open': isSearchOpen }">
 
+                    
+                <div class="menu_padding">
+                    <img class="menu" src="../assets/bilder/menu.svg" @click="toggleMenu" :class="{ 'menu-arrow-down open': isMenuOpen }">
+                </div>
+                    
+                
+            </div>
+    
     </div>
+
 </template>
 
 <style scoped>
 
-.navbar_links {
+.navbar {
     display: flex;
     justify-content: space-between;
-    gap: 5rem;
     align-items: center;
     padding: 1.5rem 5rem 0rem 5rem;
     margin-left: 1rem;
@@ -50,34 +79,74 @@ import { RouterLink } from 'vue-router';
 }
 
 
-
-.navbar_links a {
+.navbar a {
     text-decoration: none;
     color: black;
 }
 
-
-
-.erik {
-    margin-top: -0.5rem;
-    padding-left: 5rem;
-    font-size: bold;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.1rem;
-    
+.routerlinks {
+    display: flex;
+    justify-content: space-between;
+    gap: 7.5rem;
 }
 
+
+
+
+/* Search and menu icon css */
+
+.menu_padding {
+    padding-left: 4rem;
+}
+
+.search_menu {
+    display: flex;
+}
+
+.menu {
+    height: 50px;
+    width: 50px;
+    user-select: none;
+}
+
+.search {
+    height: 50px;
+    width: 50px;
+    user-select: none;
+}
+
+.menu, .search:hover {
+    cursor: pointer;
+}
+
+.menu-arrow-down.open {
+  transform: rotate(180deg);
+  transition: 0.5s linear;
+}
+
+
+.search-arrow-down.open {
+  transform: rotate(360deg);
+  transition: 0.5s linear;
+}
+
+
+
+
+
+
+/* logo image css */
 .logo {
-    height: 150px;
-    width: 150px;
+    height: 125px;
+    width: 125px;
     
     user-select: none;
 }
 
 .logo:hover {
-    cursor: pointer;
-    
+    pointer-events: none;
 }
+
 
 
 /* Underline transition */
@@ -95,9 +164,9 @@ a::after {
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 2px;
+  height: 1px;
   border-radius: 25px;
-  box-shadow: 0 0 2px 2px #000;
+  box-shadow: 0 0 1.5px 1.5px #000;
   background-color: black;
   opacity: 0;
   transition: opacity 300ms, transform 300ms;
