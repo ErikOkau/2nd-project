@@ -63,6 +63,7 @@ function toggleMenu() {
     }
 
     .show-dropdown {
+        cursor: pointer;
         opacity: 1;
         transform: translateY(0);
     }
@@ -74,6 +75,7 @@ function toggleMenu() {
         height: 50px;
         width: 50px;
         user-select: none;
+        cursor: pointer;
 
         transition: transform 0.5s ease-in-out;
     }

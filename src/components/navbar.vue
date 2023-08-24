@@ -47,6 +47,7 @@ function toggleSearch() {
     display: flex;
     justify-content: space-between;
     align-items: center;
+   
     padding: 1.5rem 5rem 0rem 5rem;
     margin-left: 1rem;
     margin-right: 1rem;
@@ -98,11 +99,13 @@ function toggleSearch() {
     height: 50px;
     width: 50px;
     user-select: none;
+    transition: 0.3s ease-in-out;
 }
 
 .menu,
 .search:hover {
     cursor: pointer;
+    transform: scale(1.15);
 }
 
 .menu-arrow-down.open {
