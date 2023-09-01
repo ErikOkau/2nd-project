@@ -5,16 +5,6 @@ import { RouterLink } from 'vue-router'
 import { ref } from 'vue'
 
 
-// Search and menu js for flipping the icons
-const search_flip = ref<HTMLElement | null>(null)
-
-const isSearchOpen = ref(false)
-
-
-function toggleSearch() {
-    search_flip.value?.classList.toggle('search-arrow-down')
-    isSearchOpen.value = !isSearchOpen.value
-}
 
 </script>
 
@@ -26,14 +16,14 @@ function toggleSearch() {
         </div>
         <div class="routerlinks">
             <RouterLink class="RouterLink" to="/">Hjem</RouterLink>
-            <RouterLink class="RouterLink" to="/om">Om</RouterLink>
+            <RouterLink class="RouterLink" to="/">Om</RouterLink>
             <RouterLink class="RouterLink" to="/kontakt">Kontakt</RouterLink>
         </div>
 
 
         <div class="search_menu">
 
-            <img class="search" src="@/assets/bilder/search.svg" @click="toggleSearch" :class="{ 'search-arrow-down open': isSearchOpen }">
+            <img class="search" src="@/assets/bilder/search.svg">
 
             <dropdown />
 
@@ -87,6 +77,7 @@ function toggleSearch() {
 .search_menu {
     display: flex;
     gap: 2rem;
+    cursor: pointer;
 }
 
 .menu {
@@ -104,20 +95,9 @@ function toggleSearch() {
 
 .menu,
 .search:hover {
-    cursor: pointer;
-    transform: scale(1.15);
+    transform: scale(1.3);
 }
 
-.menu-arrow-down.open {
-    transform: rotate(180deg);
-    transition: 0.5s linear;
-}
-
-
-.search-arrow-down.open {
-    transform: rotate(360deg);
-    transition: 0.5s linear;
-}
 
 
 

@@ -16,14 +16,14 @@ const router = createRouter({
       component: () => import('@/pages/kontakt.vue')
     },
     {
-      path: '/om',
-      name: 'om',
-      component: () => import('@/pages/om.vue')
-    },
-    {
       path: '/projekt',
       name: 'projekt',
       component: () => import('@/pages/projekt.vue')
+    },
+    {
+      path: '/valgomat',
+      name: 'valgomat',
+      component: () => import('@/pages/valgomat.vue')
     }
   ],
 })

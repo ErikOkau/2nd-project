@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+import { RouterLink } from 'vue-router'
+
 const isMenuOpen = ref(false)
 
 function toggleMenu() {
@@ -12,10 +14,17 @@ function toggleMenu() {
     <div class="container">
         <img :class="{ 'dropdown-img': true, 'menu-arrow-down': isMenuOpen }" src="@/assets/bilder/menu.svg" @click="toggleMenu">
 
-        <div class="dropdown" :class="{ 'show-dropdown': isMenuOpen }">
-            <p v-for="i in 5">Test</p> 
-
-        </div>
+        <Transition
+            name="slide-fade"
+        >
+            <div class="dropdown" v-if="isMenuOpen">
+                <RouterLink to="/projekt" class="projekter"><p>Projekter</p></RouterLink>   
+                <RouterLink to="/valgomat" class="Valgomat" ><p>Valgomat</p></RouterLink>
+                <RouterLink to="/valgomat" class="Valgomat" ><p>Valgomat</p></RouterLink>
+                <RouterLink to="/valgomat" class="Valgomat" ><p>Valgomat</p></RouterLink>
+                <RouterLink to="/valgomat" class="Valgomat" ><p>Valgomat</p></RouterLink>
+            </div>
+        </Transition>
     </div>
 </template>
 
@@ -30,14 +39,13 @@ function toggleMenu() {
 
         position: absolute;
         top: 14%;
-        right: 6.04rem;
+        right: 4.5rem;
 
-        width: 35px;
+        width: 80px;
+
+        align-items: center;
         
-        transition: opacity 0.5s ease, transform 0.5s ease;
 
-        opacity: 0;
-        transform: translateY(-25px);
 
         border: 1px solid #000;
         border-radius: 15px;
@@ -50,24 +58,24 @@ function toggleMenu() {
         p {
             font-size: 1.1rem;
             transition: 0.3s ease-in-out;
+            font-weight: 700;
+            padding: 0.3rem;
         }
 
 
         p:hover {
             cursor: pointer;
-            transform: scale(1.3);
+            transform: scale(1.2);
            
         }
 
      
     }
 
-    .show-dropdown {
-        cursor: pointer;
-        opacity: 1;
-        transform: translateY(0);
+    .Valgomat, .projekter {
+        text-decoration: none;
+        color: black;
     }
-
 
 
 
@@ -84,4 +92,26 @@ function toggleMenu() {
         transform: rotate(180deg);
     }
 }
+
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+    animation: slideInRight .5s ease;
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+    animation: slideInRight .5s reverse ease;
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(20%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
 </style>

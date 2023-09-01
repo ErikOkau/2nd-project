@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import navbar from './components/navbar.vue'
-import buttons from './components/buttons.vue'
 import footer from './components/footer.vue'
 
 import './main.css'
+
+
 
 </script>
 
@@ -18,4 +19,21 @@ import './main.css'
   <footer />
 </template>
 
-<style scoped></style>
+<style scoped>
+
+@keyframes slideInLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+* {
+  animation: 1s ease-out 0s 1 slideInLeft;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+</style>
