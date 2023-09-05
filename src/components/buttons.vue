@@ -24,9 +24,9 @@ const emojiList = [
 .button_choice  {
         background: none;
         border: none;
-        font-size: 3rem;
+        font-size: 3.2rem;
         justify-content: space-evenly;
-        margin-top: 2rem;
+        margin-top: 3.5rem;
         transition: 0.3s ease-in-out;
 
         &:hover {
