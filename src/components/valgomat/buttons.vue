@@ -1,21 +1,15 @@
 <script setup lang="ts">
 
-const emojiList = [
-    "🤮",
-    "😒",
-    "😵‍💫",
-    "😊",
-    "🤩"
-]
-
 
 </script>
 
 <template>
     <div class="buttons">
-        <button class="button_choice" v-for="i in emojiList">
-            {{ i }}
-        </button>
+        <button class="button_choice">🤮</button> 
+        <button class="button_choice">😒</button> 
+        <button class="button_choice">😵‍💫</button> 
+        <button class="button_choice">😊</button> 
+        <button class="button_choice">🤩</button> 
     </div>
 </template>
 

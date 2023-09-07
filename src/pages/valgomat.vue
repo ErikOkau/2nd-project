@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Question from '@/components/valgomat/question.vue'
-
+import questions from '@/assets/questions.json'
 import { ref } from 'vue'
 
 
@@ -8,7 +8,7 @@ const startTest = ref(false)
 const buttonHide = ref(false)
 
 
-function toggleTest() {
+function hide() {
     startTest.value = !startTest.value
     buttonHide.value = !buttonHide.value
 
@@ -24,7 +24,7 @@ function toggleTest() {
         <h1>Valgomat</h1>
         <h2>Svar på påstandene, så finner vi ut hvilket parti som er mest enig med deg!</h2>
 
-        <button class="button" @click="toggleTest" :data-showButton="!buttonHide">Start</button>
+        <button class="button" @click="hide" :data-showButton="!buttonHide">Start</button>
     </div>
 
     <Question title="1. This is a test question?" :variabel="startTest"/>

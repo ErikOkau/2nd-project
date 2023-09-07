@@ -2,7 +2,6 @@
 import dropdown from '@/components/navbar/dropdown.vue'
 
 import { RouterLink } from 'vue-router'
-import { ref } from 'vue'
 
 
 

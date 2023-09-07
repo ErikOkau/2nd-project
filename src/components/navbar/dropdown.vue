@@ -18,11 +18,11 @@ function toggleMenu() {
             name="slide-fade"
         >
             <div class="dropdown" v-if="isMenuOpen">
-                <RouterLink to="/projekt" class="projekter"><p>Projekter</p></RouterLink>   
-                <RouterLink to="/valgomat" class="Valgomat" ><p>Valgomat</p></RouterLink>
-                <RouterLink to="/valgomat" class="Valgomat" ><p>Valgomat</p></RouterLink>
-                <RouterLink to="/valgomat" class="Valgomat" ><p>Valgomat</p></RouterLink>
-                <RouterLink to="/valgomat" class="Valgomat" ><p>Valgomat</p></RouterLink>
+                <RouterLink to="/projekt" class="projekter" @click="toggleMenu"><p>Projekter</p></RouterLink>   
+                <RouterLink to="/valgomat" class="Valgomat" @click="toggleMenu"><p>Valgomat</p></RouterLink>
+                <RouterLink to="/valgomat" class="Valgomat" @click="toggleMenu"><p>Valgomat</p></RouterLink>
+                <RouterLink to="/valgomat" class="Valgomat" @click="toggleMenu"><p>Valgomat</p></RouterLink>
+                <RouterLink to="/valgomat" class="Valgomat" @click="toggleMenu"><p>Valgomat</p></RouterLink>
             </div>
         </Transition>
     </div>

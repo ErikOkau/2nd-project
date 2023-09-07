@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import buttons from '../buttons.vue'
+import buttons from './buttons.vue'
 import questions from '@/assets/questions.json'
-
+import { ref } from 'vue'
 console.log(questions)
 defineProps<{
     title: string
     variabel: boolean
-}>()    
+}>()
+
 
 
 </script>
@@ -15,7 +16,7 @@ defineProps<{
     <div class="container" :data-showButton="variabel">
         <div class="Question">
             <h2> {{ title }}</h2>
-            <buttons />
+            <buttons  />
         </div>
     </div>
 </template>
