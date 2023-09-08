@@ -20,8 +20,8 @@ onMounted(() => {
     }
 
     const scene = new THREE.Scene()
-    
-    
+
+
 
 
     //Create sphere
@@ -70,16 +70,16 @@ onMounted(() => {
     controls.enableDamping = true
     controls.enablePan = false
     controls.enableZoom = false
-   
+
 
 
     //Renderer
-    
+
     const renderer = new THREE.WebGLRenderer({
         canvas: canvas.value
     })
     renderer.setClearColor('#ffffff')
-    
+
 
 
     renderer.setSize(
@@ -155,7 +155,6 @@ onMounted(() => {
 
 
 <style scoped>
-
 .position {
     cursor: pointer;
 }

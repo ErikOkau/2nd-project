@@ -1,14 +1,14 @@
 {
     "questions": {
-        "0" : "Bør vi ha lekser i skolen?",
-        "1" : "Bør vi gi pengestøtte til bønder?",
-        "2" : "",
-        "3" : "Bør vi senke skattene?",
-        "4" : "Bør vi ha strengere straffer?",
-        "5" : "Bør vi få flere private sykehus?",
-        "6" : "Bør vi beholde kontantstøtten?",
-        "7" : "Bør leger ha muligheten til å reservere seg mot å henvise til abort?",
-        "8" : "Bør vi ta imot flere flyktninger?",
-        "9" : "Bør vi finne nye oljefelt?"
+        "0": "Bør vi ha lekser i skolen?",
+        "1": "Bør vi gi pengestøtte til bønder?",
+        "2": "",
+        "3": "Bør vi senke skattene?",
+        "4": "Bør vi ha strengere straffer?",
+        "5": "Bør vi få flere private sykehus?",
+        "6": "Bør vi beholde kontantstøtten?",
+        "7": "Bør leger ha muligheten til å reservere seg mot å henvise til abort?",
+        "8": "Bør vi ta imot flere flyktninger?",
+        "9": "Bør vi finne nye oljefelt?"
     }
 }

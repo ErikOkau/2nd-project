@@ -3,8 +3,9 @@ import buttons from './buttons.vue'
 import questions from '@/assets/questions.json'
 import { ref } from 'vue'
 console.log(questions)
+
 defineProps<{
-    title: string
+    question: string
     variabel: boolean
 }>()
 
@@ -15,21 +16,21 @@ defineProps<{
 <template>
     <div class="container" :data-showButton="variabel">
         <div class="Question">
-            <h2> {{ title }}</h2>
-            <buttons  />
+            <h2> {{ question }}</h2>
+            <buttons />
         </div>
     </div>
 </template>
 
 <style scoped lang="scss">
-
 @keyframes slideInLeft {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(0);
-  }
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
 }
 
 .container {
@@ -50,8 +51,8 @@ defineProps<{
     }
 
     &[data-showButton="true"] {
-            animation: slideInLeft 0.5s ease-in-out;
-        }
+        animation: slideInLeft 0.5s ease-in-out;
+    }
 
     .Question>h2 {
         font-family: Arial, Helvetica, sans-serif;
@@ -66,9 +67,7 @@ defineProps<{
         font-family: Arial, Helvetica, sans-serif;
     }
 
-    
+
 
 }
-
-
 </style>

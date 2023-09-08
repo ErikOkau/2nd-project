@@ -27,7 +27,7 @@ function hide() {
         <button class="button" @click="hide" :data-showButton="!buttonHide">Start</button>
     </div>
 
-    <Question title="1. This is a test question?" :variabel="startTest"/>
+    <Question question="1. This is a test question?" :variabel="startTest"/>
     
 </template>
 
