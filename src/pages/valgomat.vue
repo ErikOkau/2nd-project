@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import Question from '@/components/valgomat/question.vue'
-import questions from '@/assets/questions.json'
 import { ref } from 'vue'
 
 

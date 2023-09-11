@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import questions from '@/assets/questions.json'
 import { ref } from 'vue'
-
 
 
 </script>
