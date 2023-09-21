@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import emojibutton from './emojibutton.vue'
-import { ref } from 'vue'
+import Emojibutton from './emojibutton.vue';
+import {ref } from 'vue';
 
 defineProps<{
-    question: string
-    variabel: boolean
-}>()
+  question: any
+  variabel: boolean
+}>();
+
+const userAnswers = ref<number[]>([])
+
+/*const handleAnswer = (value: number) => {
+  userAnswers.value.push(value)
+}*/
 
 
 
@@ -13,11 +19,11 @@ defineProps<{
 
 <template>
     <div class="container" :data-showButton="variabel">
-        <div class="Question">
-            <h2> {{ question }}</h2>
-            <emojibutton />
-        </div>
+    <div class="Question" v-if="question">
+      <h2>{{ question.question }}</h2>
+        <!-- <Emojibutton @answer="handleAnswer" /> -->
     </div>
+  </div>
 </template>
 
 <style scoped lang="scss">

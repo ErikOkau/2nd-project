@@ -1,21 +1,45 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+
+const emojiValues = [
+    {
+        emoji: "🤮",
+        value: -1
+    },
+    {
+        emoji: "😒",
+        value: -0.5
+    },
+    {
+        emoji: "😵‍💫",
+        value: 0
+    },
+    {
+        emoji: "😊",
+        value: 0.5
+    },
+    {
+        emoji: "🤩",
+        value: 1
+    },
+] // Corresponding values for emojis
+const { answer } = defineProps(['answer']) // Define the prop
+
+
+const emitAnswer = (value: number) => {
+  answer(value)
+}
 
 
 </script>
 
 <template>
-    <div class="buttons">
-        <button class="button_choice">🤮</button>
-        <button class="button_choice">😒</button>
-        <button class="button_choice">😵‍💫</button>
-        <button class="button_choice">😊</button>
-        <button class="button_choice">🤩</button>
-    </div>
+  <div class="buttons">
+        <button v-for="emojiValue in emojiValues" @click="emitAnswer(emojiValue.value)">{{ emojiValue.emoji }}</button>
+  </div>
 </template>
 
 <style scoped lang="scss">
-.button_choice {
+button {
     background: none;
     border: none;
     font-size: 3.2rem;

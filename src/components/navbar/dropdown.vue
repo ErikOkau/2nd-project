@@ -39,7 +39,7 @@ function toggleMenu() {
 
         position: absolute;
         top: 14%;
-        right: 4.5rem;
+        right: 4rem;
 
         width: 80px;
 
