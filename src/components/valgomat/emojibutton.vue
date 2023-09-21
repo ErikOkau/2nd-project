@@ -29,8 +29,8 @@ const emitAnswer = (value: number) => {
   answer(value)
 }
 
-
 </script>
+
 
 <template>
   <div class="buttons">
@@ -38,7 +38,9 @@ const emitAnswer = (value: number) => {
   </div>
 </template>
 
+
 <style scoped lang="scss">
+
 button {
     background: none;
     border: none;
@@ -58,7 +60,5 @@ button {
     flex-direction: row;
     justify-content: center;
     gap: 2.5rem;
-
-
 }
 </style>

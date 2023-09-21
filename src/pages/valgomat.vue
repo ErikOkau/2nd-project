@@ -10,22 +10,14 @@ const startTest = ref(false)
 const buttonHide = ref(false)
 const currentQuestionIndex = ref(-1)
 const userAnswers = ref<number[]>([])
-const partyPoints = ref<{ [party: string]: number }>({});
-const finishTest = ref(false)
+const partyPoints = ref<{ [party: string]: number }>({})
 
-
-const finish = () => {
-  finishTest.value = !finishTest.value;
-}
 
 const hideButton = () => {
-  startTest.value = !startTest.value;
-  buttonHide.value = !buttonHide.value;
+  startTest.value = !startTest.value
+  buttonHide.value = !buttonHide.value
   showNextQuestion()
 }
-
-
-
 
 
 // computed
@@ -58,6 +50,7 @@ const showNextQuestion = () => {
     currentQuestionIndex.value++
   } else {
     startTest.value = false; // Hide questions and emojibuttons when all questions are answered
+    finish()
   }
 }
 
@@ -70,13 +63,15 @@ const updatePartyPoints = (value: number) => {
       const partyName = party.name
 
       if (partyOpinions[currentQuestionIndex.value] === value) {
-        partyPoints.value[partyName] = (partyPoints.value[partyName] || 0) + 1
+        partyPoints.value[partyName] = (partyPoints.value[partyName] || 0) + 10
       } else {
         partyPoints.value[partyName] = (partyPoints.value[partyName] || 0)
       }
     })
   }
 }
+
+
 // Compute the party points
 const partyPointsList = computed(() => {
   return Object.keys(partyPoints.value).map((party) => ({
@@ -85,12 +80,26 @@ const partyPointsList = computed(() => {
   }))
 })
 
+
+const finishRef = ref(false)
+
+
+const finish = () => {
+  finishRef.value = !finishRef.value
+}
+
+
+const restart = () => {
+    location.reload()
+}
+
 </script>
+
 
 <template>
     <div class="header">
-        <h1>Valgomat</h1>
-        <h2>Svar på påstandene, så finner vi ut hvilket parti som er mest enig med deg!</h2>
+        <h1 v-if="!finishRef">Valgomat</h1>
+        <h2 v-if="!finishRef">Svar på påstandene, så finner vi ut hvilket parti som er mest enig med deg!</h2>
 
         <button class="button" @click="hideButton" :data-showButton="!buttonHide">Start</button>
     </div>
@@ -102,41 +111,39 @@ const partyPointsList = computed(() => {
           
 
           <div class="emojibuttons">
-              <Emojibutton v-if="startTest" :answer="updatePartyPoints" @click="showNextQuestion" />
+              <Emojibutton class="emoji" v-if="startTest" :answer="updatePartyPoints" @click="showNextQuestion" />
           </div>
       </div>
  
       <div class="party-points" v-else>
-        <h3>Party Points:</h3>
+        <h3 v-if="finishRef">Resultat</h3>
           <ul>
               <li v-for="partyPoint in sortedPartyPoints" :key="partyPoint.party">
                 {{ partyPoint.party }}: {{ partyPoint.points }}
               </li>
           </ul>
+          <button class="start_test" @click="restart" v-if="finishRef">Ta testen på nytt</button>
       </div>
-
-       
-
 </template>
+
 
 <style scoped lang="scss">
 
-
 .party-points {
-  margin-left: 33%;
-  margin-top: 4%;
-  width: 40rem;
-  height: 20rem;
-  text-align: center;
-  transition: 0.5s ease-in-out;
-  
- 
-  animation: slideInLeft 0.5s ease-in-out;
-  animation-delay: 0.5s;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-  animation-play-state: running;
-  animation-timing-function: ease-in-out;
+    margin-top: -6rem;
+    margin-left: 33%;
+    width: 40rem;
+    height: 20rem;
+    text-align: center;
+    transition: 0.5s ease-in-out;
+    
+    
+    animation: slideInLeft 0.5s ease-in-out;
+    animation-delay: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+    animation-timing-function: ease-in-out;
 
   h3 {
     font-family: Arial, Helvetica, sans-serif;
@@ -159,15 +166,12 @@ const partyPointsList = computed(() => {
   }
 }
 
-
-
 .emojibuttons {
-  display: grid;
-  place-items: center;
-  margin-top: -14.6rem;
-  margin-right: 0.9rem;
+    display: grid;
+    place-items: center;
+    margin-top: -14.6rem;
+    margin-right: 0.9rem;
 }
-
 
 .header {
     margin-left: 32.9%;
@@ -197,10 +201,7 @@ const partyPointsList = computed(() => {
 
         &[data-showButton="false"] {
             opacity: 0;
-         
         }
-
-       
     }
 }
 
@@ -218,8 +219,8 @@ h2 {
 
 .start_test {
     margin-top: 1rem;
-    width: 10rem;
-    height: 3rem;
+    width: 12rem;
+    height: 4rem;
     background: #000;
     color: #fff;
     border: none;
@@ -228,10 +229,12 @@ h2 {
     font-weight: 700;
     cursor: pointer;
     transition: 0.5s ease-in-out;
+    padding: 0.4rem 0.4rem 0.4rem 0.4rem;
 }
 
 .start_test:hover {
     background: grey;
     color: #000;
 }
+
 </style>

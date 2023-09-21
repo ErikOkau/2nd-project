@@ -5,17 +5,10 @@ import {ref } from 'vue';
 defineProps<{
   question: any
   variabel: boolean
-}>();
-
-const userAnswers = ref<number[]>([])
-
-/*const handleAnswer = (value: number) => {
-  userAnswers.value.push(value)
-}*/
-
-
+}>()
 
 </script>
+
 
 <template>
     <div class="container" :data-showButton="variabel">
@@ -25,6 +18,7 @@ const userAnswers = ref<number[]>([])
     </div>
   </div>
 </template>
+
 
 <style scoped lang="scss">
 @keyframes slideInLeft {
@@ -70,8 +64,5 @@ const userAnswers = ref<number[]>([])
         font-size: 1.2rem;
         font-family: Arial, Helvetica, sans-serif;
     }
-
-
-
 }
 </style>
