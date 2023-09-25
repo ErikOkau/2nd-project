@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import valgomatConfig from '@/assets/scripts/valgomatConifg'
+import valgomatConfig from '@/assets/scripts/valgomatConfig'
 import Question from '@/components/valgomat/question.vue'
 import Emojibutton from '@/components/valgomat/emojibutton.vue'
 
@@ -58,18 +58,36 @@ const showNextQuestion = () => {
 // Function to update party points based on user's answer
 const updatePartyPoints = (value: number) => {
   if (value !== 0) {
-    valgomatConfig.parties.forEach((party) => {
-      const partyOpinions = party.opinions
-      const partyName = party.name
+    valgomatConfig.parties.forEach((party: string) => {
+      const partyOpinions = valgomatConfig.questions[currentQuestionIndex.value].opinions[party]
+      const partyName = party
 
-      if (partyOpinions[currentQuestionIndex.value] === value) {
-        partyPoints.value[partyName] = (partyPoints.value[partyName] || 0) + 10
-      } else {
-        partyPoints.value[partyName] = (partyPoints.value[partyName] || 0)
+      if (partyOpinions === value) {
+        partyPoints.value[partyName] = (partyPoints.value[partyName] || 0) + 1
+      } else if (partyOpinions === value * -1) {
+        partyPoints.value[partyName] = (partyPoints.value[partyName] || 0) - 1
+      } else if (partyOpinions === 0 && value === 0.5) {
+        partyPoints.value[partyName] = (partyPoints.value[partyName] || 0) + 0.5
       }
     })
   }
 }
+
+// // Function to update party points based on user's answer
+// const updatePartyPoints = (value: number) => {
+//   if (value !== 0) {
+//     valgomatConfig.parties.forEach((party: any) => {
+//       const partyOpinions = party.opinions
+//       const partyName = party.name
+
+//       if (partyOpinions[currentQuestionIndex.value] === value) {
+//         partyPoints.value[partyName] = (partyPoints.value[partyName] || 0) + 10
+//       } else {
+//         partyPoints.value[partyName] = (partyPoints.value[partyName] || 0)
+//       }
+//     })
+//   }
+// }
 
 
 // Compute the party points
@@ -104,14 +122,14 @@ const restart = () => {
         <button class="button" @click="hideButton" :data-showButton="!buttonHide">Start</button>
     </div>
 
-      <div class="container" v-if="startTest && currentQuestion">
+  
+        <div class="container" v-if="startTest && currentQuestion" :data-showButton="buttonHide">
           <div class="questions">
             <Question :question="currentQuestion" :variabel="startTest" @answer="updateAnswers" />
           </div>
           
-
           <div class="emojibuttons">
-              <Emojibutton class="emoji" v-if="startTest" :answer="updatePartyPoints" @click="showNextQuestion" />
+              <Emojibutton class="emoji" v-if="startTest" :answer="updatePartyPoints" @click="showNextQuestion" :data-showButton="buttonHide"/>
           </div>
       </div>
  
@@ -124,11 +142,35 @@ const restart = () => {
           </ul>
           <button class="start_test" @click="restart" v-if="finishRef">Ta testen på nytt</button>
       </div>
+   
 </template>
 
 
 <style scoped lang="scss">
 
+.emoji {
+    transition: 0.5s ease-in-out;
+    opacity: 0;
+
+    &[data-showButton="true"] {
+        opacity: 1;
+    }
+}
+
+.container {
+    transition: 0.5s ease-in-out;
+
+    
+    &[data-showButton="false"] {
+        opacity: 0;
+        animation: slideInLeft 0.5s ease-in-out;
+    }
+
+    &[data-showButton="true"] {
+        animation: slideInLeft 0.5s ease-in-out;
+        opacity: 1;
+    }
+}
 .party-points {
     margin-top: -6rem;
     margin-left: 33%;

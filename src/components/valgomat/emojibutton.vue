@@ -1,5 +1,8 @@
 <script setup lang="ts">
 
+import { defineProps } from 'vue' // Import defineProps
+
+
 const emojiValues = [
     {
         emoji: "🤮",
@@ -23,10 +26,10 @@ const emojiValues = [
     },
 ] // Corresponding values for emojis
 const { answer } = defineProps(['answer']) // Define the prop
-
+const emits = defineEmits()
 
 const emitAnswer = (value: number) => {
-  answer(value)
+  emits('answer', value)
 }
 
 </script>
@@ -48,6 +51,7 @@ button {
     justify-content: space-evenly;
     margin-top: 3.5rem;
     transition: 0.3s ease-in-out;
+
 
     &:hover {
         cursor: pointer;

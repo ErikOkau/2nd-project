@@ -21,15 +21,7 @@ defineProps<{
 
 
 <style scoped lang="scss">
-@keyframes slideInLeft {
-    0% {
-        transform: translateX(-100%);
-    }
 
-    100% {
-        transform: translateX(0);
-    }
-}
 
 .container {
     width: 40rem;
@@ -44,13 +36,6 @@ defineProps<{
     transition: 0.5s ease-in-out;
     box-shadow: 0px 0px 3px 10px;
 
-    &[data-showButton="false"] {
-        opacity: 0;
-    }
-
-    &[data-showButton="true"] {
-        animation: slideInLeft 0.5s ease-in-out;
-    }
 
     .Question>h2 {
         font-family: Arial, Helvetica, sans-serif;
