@@ -22,6 +22,15 @@ defineProps<{
 
 <style scoped lang="scss">
 
+.spawn-enter-active,
+.spawn-leave-active {
+  transition: transform 0.5s ease-in-out;
+}
+
+.spawn-enter-from,
+.spawn-leave-to {
+  transform: translateX(100%);
+}
 
 .container {
     width: 40rem;

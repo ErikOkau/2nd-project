@@ -1,20 +1,25 @@
 export type UnionOfArrayElements<ARR_T extends Readonly<unknown[]>> = ARR_T[number];
 
 
-export const parties = ["Høyre", "Venstre", "Rødt", "AP", "SP", "SV", "FrP", "KrF", "MDG"] as const
-export const possibleIcons = parties.map(p => `${p}.png`)
+export const parties = ["Høyre", "Venstre", "Rødt", "AP", "SP", "SV", "FrP", "KrF", "MDG"] // as const
+
+// export const possibleIcons = parties.map(p => `${p}.png`)
+
 type Parties = UnionOfArrayElements<typeof parties>
+
+
 export interface Question {
     question: string
-
     opinions: {
         [party in Parties]: number
     }
 }
 
 
+
 export interface Config {
     questions: Question[]
+    parties: Parties[]
 }   
 
 const config: Config = {
@@ -231,7 +236,7 @@ const config: Config = {
         },
        
         
-    ]
+    ], parties: parties
 }
 
 export default config

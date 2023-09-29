@@ -30,6 +30,7 @@ const emits = defineEmits()
 
 const emitAnswer = (value: number) => {
   emits('answer', value)
+  console.log(`Selected value: ${value}`); // Add this line
 }
 
 </script>

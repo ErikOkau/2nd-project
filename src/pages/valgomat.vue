@@ -1,18 +1,21 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import valgomatConfig from '@/assets/scripts/valgomatConfig'
 import Question from '@/components/valgomat/question.vue'
 import Emojibutton from '@/components/valgomat/emojibutton.vue'
 
 
 // refs
+const parties = valgomatConfig.parties; // Bruk partinavns-arrayet fra konfigurasjonen
+
 const startTest = ref(false)
 const buttonHide = ref(false)
 const currentQuestionIndex = ref(-1)
 const userAnswers = ref<number[]>([])
-const partyPoints = ref<{ [party: string]: number }>({})
+const partyPoints = ref<{ [party in typeof parties[number]]: number }>({});
 
 
+// Hide the "Start" button and begin the test
 const hideButton = () => {
   startTest.value = !startTest.value
   buttonHide.value = !buttonHide.value
@@ -20,7 +23,7 @@ const hideButton = () => {
 }
 
 
-// computed
+// Compute the current question
 const currentQuestion = computed(() => {
   if (currentQuestionIndex.value >= 0 && currentQuestionIndex.value < valgomatConfig.questions.length) {
     return valgomatConfig.questions[currentQuestionIndex.value]
@@ -28,6 +31,8 @@ const currentQuestion = computed(() => {
   return null
 })
 
+
+// Compute the party points in descending order
 const sortedPartyPoints = computed(() => {
   const pointsArray = Object.keys(partyPoints.value).map((party) => ({
     party,
@@ -38,13 +43,13 @@ const sortedPartyPoints = computed(() => {
 })
 
 
-// functions
+// Function to update user answers
 const updateAnswers = (value: number) => {
-  userAnswers.value.push(value)
+  userAnswers.value.push(value);
   console.log(userAnswers.value)
-
 }
 
+// Function to show the next question
 const showNextQuestion = () => {
   if (currentQuestionIndex.value < valgomatConfig.questions.length - 1) {
     currentQuestionIndex.value++
@@ -57,59 +62,33 @@ const showNextQuestion = () => {
 
 // Function to update party points based on user's answer
 const updatePartyPoints = (value: number) => {
-  if (value !== 0) {
-    valgomatConfig.parties.forEach((party: string) => {
-      const partyOpinions = valgomatConfig.questions[currentQuestionIndex.value].opinions[party]
-      const partyName = party
+    if (currentQuestion.value) {
+        const currentPartyOpinion = currentQuestion.value.opinions;
+        const selectedParties = parties.filter(party => currentPartyOpinion[party] === 1)
 
-      if (partyOpinions === value) {
-        partyPoints.value[partyName] = (partyPoints.value[partyName] || 0) + 1
-      } else if (partyOpinions === value * -1) {
-        partyPoints.value[partyName] = (partyPoints.value[partyName] || 0) - 1
-      } else if (partyOpinions === 0 && value === 0.5) {
-        partyPoints.value[partyName] = (partyPoints.value[partyName] || 0) + 0.5
-      }
-    })
-  }
+        selectedParties.forEach(party => {
+            partyPoints.value[party] = (partyPoints.value[party] || 0) + value
+        })
+
+        updateAnswers(value)
+        showNextQuestion()
+    }
 }
 
-// // Function to update party points based on user's answer
-// const updatePartyPoints = (value: number) => {
-//   if (value !== 0) {
-//     valgomatConfig.parties.forEach((party: any) => {
-//       const partyOpinions = party.opinions
-//       const partyName = party.name
-
-//       if (partyOpinions[currentQuestionIndex.value] === value) {
-//         partyPoints.value[partyName] = (partyPoints.value[partyName] || 0) + 10
-//       } else {
-//         partyPoints.value[partyName] = (partyPoints.value[partyName] || 0)
-//       }
-//     })
-//   }
-// }
 
 
-// Compute the party points
-const partyPointsList = computed(() => {
-  return Object.keys(partyPoints.value).map((party) => ({
-    party,
-    points: partyPoints.value[party],
-  }))
-})
-
-
+// Function to finish the test
 const finishRef = ref(false)
-
-
 const finish = () => {
   finishRef.value = !finishRef.value
 }
 
-
+// Function to restart the test
 const restart = () => {
     location.reload()
 }
+
+
 
 </script>
 
@@ -125,11 +104,11 @@ const restart = () => {
   
         <div class="container" v-if="startTest && currentQuestion" :data-showButton="buttonHide">
           <div class="questions">
-            <Question :question="currentQuestion" :variabel="startTest" @answer="updateAnswers" />
+            <Question :question="currentQuestion" :variabel="startTest" />
           </div>
           
           <div class="emojibuttons">
-              <Emojibutton class="emoji" v-if="startTest" :answer="updatePartyPoints" @click="showNextQuestion" :data-showButton="buttonHide"/>
+              <Emojibutton class="emoji" v-if="startTest" @answer="updatePartyPoints" :data-showButton="buttonHide"/>
           </div>
       </div>
  
@@ -137,7 +116,8 @@ const restart = () => {
         <h3 v-if="finishRef">Resultat</h3>
           <ul>
               <li v-for="partyPoint in sortedPartyPoints" :key="partyPoint.party">
-                {{ partyPoint.party }}: {{ partyPoint.points }}
+                <span>{{ partyPoint.party }}:</span> 
+                <span>{{ partyPoint.points }}</span>
               </li>
           </ul>
           <button class="start_test" @click="restart" v-if="finishRef">Ta testen på nytt</button>
@@ -171,15 +151,12 @@ const restart = () => {
         opacity: 1;
     }
 }
+
 .party-points {
     margin-top: -6rem;
     margin-left: 33%;
     width: 40rem;
-    height: 20rem;
     text-align: center;
-    transition: 0.5s ease-in-out;
-    
-    
     animation: slideInLeft 0.5s ease-in-out;
     animation-delay: 0.5s;
     animation-fill-mode: forwards;
@@ -187,26 +164,39 @@ const restart = () => {
     animation-play-state: running;
     animation-timing-function: ease-in-out;
 
-  h3 {
-    font-family: Arial, Helvetica, sans-serif;
-    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
-    font-size: 3rem;
-    font-weight: 700;
-  }
+    h3 {
+        font-family: Arial, Helvetica, sans-serif;
+        padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
 
-  ul {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 1.3rem;
-    font-weight: 700;
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
+    ul {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1.6rem;
+        font-weight: 700;
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
 
-  li {
-    margin-top: 1rem;
-  }
+    li {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        background-color: #f5f5f5;
+        border-radius: 10px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+
+        span {
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+    }
 }
+
 
 .emojibuttons {
     display: grid;

@@ -1,21 +1,8 @@
 const valgomatConfig = {
     questions: [
 
-      {
-        
+      {  
         question: "Bør vi ha lekser i skolen?",
-        parties: {
-          "Høyre": 1,
-          "Venstre": 1,
-          "Rødt": 0,
-          "Arbeiderpartiet": 1,
-          "Senterpartiet": 0,
-          "SV": 0,
-          "Fremskrittspartiet": 1,
-          "Kristelig Folkeparti": 1,
-          "Miljøpartiet De Grønne": 0
-        }
-        
       },
       {
         question: "Bør vi gi pengestøtte til bønder?",

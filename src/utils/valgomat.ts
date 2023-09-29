@@ -1,5 +1,5 @@
 import { ref, computed } from 'vue'
-import valgomatConfig from '@/assets/scripts/valgomatConifg'
+import valgomatConfig from '@/assets/scripts/valgomatConfig2'
 
 
 export const currentQuestionIndex = ref(-1)
