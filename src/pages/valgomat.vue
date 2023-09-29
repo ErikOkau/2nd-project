@@ -90,6 +90,23 @@ const restart = () => {
 
 
 
+
+const maxPoints = computed(() => {
+    const pointsArray = Object.keys(partyPoints.value).map(party => partyPoints.value[party])
+    return Math.max(...pointsArray);
+})
+
+const partyProgress = computed(() => {
+    const progress: { party: string; percentage: number }[] = [];
+    for (const party in partyPoints.value) {
+        const percentage = (partyPoints.value[party] / maxPoints.value) * 100;
+        progress.push({ party, percentage })
+    }
+    // Sort the parties in descending order based on the percentage
+    return progress.sort((a, b) => b.percentage - a.percentage);
+});
+
+
 </script>
 
 
@@ -114,13 +131,15 @@ const restart = () => {
  
       <div class="party-points" v-else>
         <h3 v-if="finishRef">Resultat</h3>
-          <ul>
-              <li v-for="partyPoint in sortedPartyPoints" :key="partyPoint.party">
-                <span>{{ partyPoint.party }}:</span> 
-                <span>{{ partyPoint.points }}</span>
-              </li>
-          </ul>
+          <div v-for="party in partyProgress" :key="party.party">
+            <div class="party-name">{{ party.party }}</div>
+              <div class="progress-bar">
+                <div class="progress" :style="{ width: party.percentage + '%' }"></div>
+              </div>
+            </div>
+            
           <button class="start_test" @click="restart" v-if="finishRef">Ta testen på nytt</button>
+          
       </div>
    
 </template>
@@ -169,30 +188,38 @@ const restart = () => {
         padding: 0.5rem 0.5rem 0.5rem 0.5rem;
         font-size: 2.5rem;
         font-weight: 700;
+        margin-bottom: -1rem;
     }
 
-    ul {
-        font-family: Arial, Helvetica, sans-serif;
-        font-size: 1.6rem;
-        font-weight: 700;
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    li {
-        margin-top: 1rem;
+    div {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        padding: 0.5rem 1rem;
-        background-color: #f5f5f5;
-        border-radius: 10px;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        margin-top: 1rem;
 
-        span {
+        .party-name {
+            font-size: 1.6rem;
+            width: 100px;
+        }
+
+        .progress-bar {
+            flex: 1;
+            height: 24px;
+            background-color: #f5f5f5;
+            border-radius: 12px;
+            margin-left: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #4caf50; /* Green color for the progress bar */
+            transition: width 0.5s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             font-size: 1.4rem;
-            font-weight: 500;
+            color: #fff;
         }
     }
 }
@@ -250,7 +277,7 @@ h2 {
 }
 
 .start_test {
-    margin-top: 1rem;
+    margin-top: 2rem;
     width: 12rem;
     height: 4rem;
     background: #000;
