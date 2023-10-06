@@ -18,7 +18,7 @@ function toggleMenu() {
             name="slide-fade"
         >
             <div class="dropdown" v-if="isMenuOpen">
-                <RouterLink to="/projekt" class="projekter" @click="toggleMenu"><p>Projekter</p></RouterLink>   
+                <RouterLink to="/" class="projekter" @click="toggleMenu"><p>Projekter</p></RouterLink>   
                 <RouterLink to="/valgomat" class="Valgomat" @click="toggleMenu"><p>Valgomat</p></RouterLink>
                 <RouterLink to="/valgomat" class="Valgomat" @click="toggleMenu"><p>Valgomat</p></RouterLink>
                 <RouterLink to="/valgomat" class="Valgomat" @click="toggleMenu"><p>Valgomat</p></RouterLink>
@@ -34,7 +34,7 @@ function toggleMenu() {
         display: flex;
         flex-direction: column;
         cursor: pointer;
-        gap: 1rem;
+       
         padding: 1rem;
 
         position: absolute;

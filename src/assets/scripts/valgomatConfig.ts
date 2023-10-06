@@ -1,13 +1,19 @@
+// Defining a type 'UnionOfArrayElements' that takes a readonly array and represents the union of its elements
 export type UnionOfArrayElements<ARR_T extends Readonly<unknown[]>> = ARR_T[number];
 
 
-export const parties = ["Høyre", "Venstre", "Rødt", "AP", "SP", "SV", "FrP", "KrF", "MDG"] // as const
+// Array of political parties
+export const parties = ["Høyre", "Venstre", "Rødt", "AP", "SP", "SV", "FrP", "KrF", "MDG"]
 
-// export const possibleIcons = parties.map(p => `${p}.png`)
 
+export const possibleIcons = parties.map(p => `${p}.png`)
+
+
+// Type representing the union of elements in the 'parties' array
 type Parties = UnionOfArrayElements<typeof parties>
 
 
+// Interface representing a question with opinions from different parties
 export interface Question {
     question: string
     opinions: {
@@ -16,12 +22,14 @@ export interface Question {
 }
 
 
-
+// Interface representing the configuration object with questions and available parties
 export interface Config {
     questions: Question[]
     parties: Parties[]
-}   
+}
 
+
+// Configuration object containing an array of questions and the available parties
 const config: Config = {
     questions: [
         {
@@ -234,10 +242,23 @@ const config: Config = {
                 "MDG": 1
             }
         },
-       
-        
-    ], parties: parties
+
+
+    ], parties: parties // Assigning the 'parties' array to the 'parties' property in the configuration object
 }
 
+export const partyIcons: { [key: string]: string } = {
+    "Høyre": "/icons/hyre.png",
+    "Venstre": "/icons/venstre.png",
+    "Rødt": "/icons/rodt.png",
+    "AP": "/icons/ap.png",
+    "SP": "/icons/sp.png",
+    "SV": "/icons/sv.png",
+    "FrP": "/icons/frp.png",
+    "KrF": "/icons/krf.png",
+    "MDG": "/icons/mdg.png"    
+  };
+
+
+
 export default config
-﻿

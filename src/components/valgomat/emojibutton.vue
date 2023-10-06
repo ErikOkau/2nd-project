@@ -2,7 +2,7 @@
 
 import { defineProps } from 'vue' // Import defineProps
 
-
+// Array of emoji objects with corresponding values
 const emojiValues = [
     {
         emoji: "🤮",
@@ -24,27 +24,32 @@ const emojiValues = [
         emoji: "🤩",
         value: 1
     },
-] // Corresponding values for emojis
-const { answer } = defineProps(['answer']) // Define the prop
+]
+
+
+// Extracting the 'answer' prop using defineProps
+const { answer } = defineProps(['answer'])
+
+// Creating an instance of the emit function using defineEmits
 const emits = defineEmits()
 
+// Function to emit the selected answer value
 const emitAnswer = (value: number) => {
-  emits('answer', value)
-  console.log(`Selected value: ${value}`); // Add this line
+    emits('answer', value) // Emitting the 'answer' event with the selected value
+    console.log(`Selected value: ${value}`)
 }
 
 </script>
 
 
 <template>
-  <div class="buttons">
+    <div class="buttons">
         <button v-for="emojiValue in emojiValues" @click="emitAnswer(emojiValue.value)">{{ emojiValue.emoji }}</button>
-  </div>
+    </div>
 </template>
 
 
 <style scoped lang="scss">
-
 button {
     background: none;
     border: none;

@@ -10,20 +10,15 @@ const router = createRouter({
       name: 'Home',
       component: () => import('@/pages/home.vue')
     },
-    { 
-      path: '/kontakt',
-      name: 'kontakt',
-      component: () => import('@/pages/kontakt.vue')
-    },
-    {
-      path: '/projekt',
-      name: 'projekt',
-      component: () => import('@/pages/projekt.vue')
-    },
     {
       path: '/valgomat',
       name: 'valgomat',
       component: () => import('@/pages/valgomat.vue')
+    },
+    {
+      path: '/:notfound(.*)',
+      name: 'notfound',
+      component: () => import('@/pages/Error404.vue')
     }
   ],
 })
