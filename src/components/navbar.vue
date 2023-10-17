@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import dropdown from '@/components/navbar/dropdown.vue'
+import Dropdown from '@/components/navbar/dropdown.vue'
 
 import { RouterLink } from 'vue-router'
 
@@ -24,7 +24,7 @@ import { RouterLink } from 'vue-router'
 
             <img class="search" src="@/assets/bilder/search.svg">
 
-            <dropdown />
+            <Dropdown />
 
         </div>
 
