@@ -84,6 +84,8 @@ const updatePartyPoints = (value: number) => {
 
     updateAnswers(value)
     showNextQuestion()
+
+    console.log(partyPoints.value)
   }
 }
 
@@ -245,10 +247,16 @@ const getPartyIcon = (party: string): string => {
 
 
 .emojibuttons {
-  display: grid;
-  place-items: center;
+  display: flex;
+  justify-content: center;
   margin-top: -14.6rem;
   margin-right: 0.9rem;
+}
+
+@media screen and (max-width: 1313px) {
+  .emojibuttons {
+    margin-left: 13.5rem;
+  }
 }
 
 .header {
@@ -278,7 +286,7 @@ const getPartyIcon = (party: string): string => {
     }
 
     &[data-showButton="false"] {
-      opacity: 0;
+      display: none;
     }
   }
 }
